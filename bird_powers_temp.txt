@@ -1,0 +1,32 @@
+
+# var last_unix=0
+# var sync_to_sec=false
+# var curr_tick=59 #60/s
+# var missed=0
+
+# #sync curr_tick to OS.get_unix_time()
+# func _sync():
+# 	if sync_to_sec:
+# 		return true
+# 	else:
+# 		if last_unix!=OS.get_unix_time():
+# 			sync_to_sec=true
+# 			return true
+# 	return false
+
+# func sync_to_unix():
+# 	sync_to_sec=false
+# 	last_unix=OS.get_unix_time()
+
+# func _ready():
+# 	sync_to_unix()
+
+# func update_tick():
+# 	if last_unix!=OS.get_unix_time():
+# 		if curr_tick!=59:
+# 			missed+=59-curr_tick
+# #			get_node("../Screen/ReferenceRect/Label2").text="%d"%missed
+# 		curr_tick=0
+# 		last_unix=OS.get_unix_time()
+# 	else:
+# 		curr_tick+=1

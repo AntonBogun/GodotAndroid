@@ -1,0 +1,1295 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://UI.gd" type="Script" id=2]
+[ext_resource path="res://UITheme.tres" type="Theme" id=3]
+[ext_resource path="res://Time.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/Hack/HackLarge.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Players.gd" type="Script" id=6]
+[ext_resource path="res://Pause.gd" type="Script" id=7]
+[ext_resource path="res://Game.gd" type="Script" id=8]
+[ext_resource path="res://Bird.gd" type="Script" id=9]
+[ext_resource path="res://End.gd" type="Script" id=10]
+
+[sub_resource type="DynamicFontData" id=12]
+font_path = "res://Fonts/Hack/Hack-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=13]
+size = 25
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 12 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Screen" type="CanvasLayer" parent="."]
+script = ExtResource( 2 )
+
+[node name="Theme" type="ReferenceRect" parent="Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Color" type="ColorRect" parent="Screen/Theme"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.301961, 0.301961, 0.301961, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="dead zone" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.05
+mouse_filter = 2
+editor_only = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Players" type="ReferenceRect" parent="Screen/Theme"]
+anchor_top = 0.0647003
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Scroll" type="ScrollContainer" parent="Screen/Theme/Players"]
+anchor_right = 1.0
+anchor_bottom = 0.414672
+mouse_filter = 1
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Container" type="VBoxContainer" parent="Screen/Theme/Players/Scroll"]
+margin_right = 600.0
+margin_bottom = 150.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="New" type="Button" parent="Screen/Theme/Players/Scroll/Container"]
+margin_right = 600.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 600, 150 )
+text = "Add new player"
+
+[node name="Continue" type="Button" parent="Screen/Theme/Players"]
+anchor_left = 0.0169756
+anchor_top = 0.900183
+anchor_right = 0.497745
+anchor_bottom = 0.992779
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Error" type="Label" parent="Screen/Theme/Players"]
+visible = false
+anchor_left = 0.035
+anchor_top = 0.842
+anchor_right = 0.204
+anchor_bottom = 0.884
+margin_left = -22.0366
+margin_top = -38.9337
+margin_right = 378.203
+margin_bottom = -24.2583
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 1, 0.494118, 0.494118, 1 )
+text = "Error: All names must be
+non-empty"
+
+[node name="Edit" type="Control" parent="Screen/Theme/Players"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorPicker" type="ColorPicker" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.00495947
+anchor_top = 0.497536
+anchor_right = 0.595959
+anchor_bottom = 0.797536
+margin_left = 8.18736
+margin_top = 9.03064
+margin_right = 7.54785
+margin_bottom = 7.61487
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Random" type="Button" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.613246
+anchor_top = 0.611524
+anchor_right = 0.997707
+anchor_bottom = 0.676156
+margin_right = 0.159912
+margin_bottom = -0.786621
+text = "Random Color"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Name" type="TextEdit" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.188192
+anchor_top = 0.425116
+anchor_right = 0.967152
+anchor_bottom = 0.492553
+margin_left = 0.279984
+margin_top = -0.76416
+margin_right = 0.161682
+margin_bottom = -0.792358
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="IncludeText" type="Label" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.620233
+anchor_top = 0.681542
+anchor_right = 0.874927
+anchor_bottom = 0.717585
+margin_left = 0.367798
+margin_top = 0.451904
+margin_right = -0.514771
+margin_bottom = 0.264648
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Bird theory:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.018
+anchor_top = 0.432
+anchor_right = 0.173
+anchor_bottom = 0.484
+margin_left = 0.280001
+margin_top = 0.640686
+margin_right = -0.103729
+margin_bottom = 40.8406
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Name:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Bird" type="OptionButton" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.622
+anchor_top = 0.678
+anchor_right = 0.966
+anchor_bottom = 0.742
+margin_left = -6.10565
+margin_top = 63.6403
+margin_right = 9.1344
+margin_bottom = 62.2582
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Not included"
+items = [ "Not included", null, false, 0, null, "Basic instructions", null, false, 1, null, "Request bird names", null, false, 2, null, "Track resources", null, false, 3, null ]
+selected = 0
+
+[node name="Up" type="Button" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.613252
+anchor_top = 0.501146
+anchor_right = 0.997713
+anchor_bottom = 0.548247
+margin_right = 0.159912
+margin_bottom = -0.786621
+text = "Move up"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Down" type="Button" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.614965
+anchor_top = 0.558811
+anchor_right = 0.999427
+anchor_bottom = 0.605912
+margin_right = 0.159912
+margin_bottom = -0.786621
+text = "Move down"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Delete" type="Button" parent="Screen/Theme/Players/Edit"]
+anchor_left = 0.268666
+anchor_top = 0.830322
+anchor_right = 0.577166
+anchor_bottom = 0.881518
+margin_right = 0.159912
+margin_bottom = -0.786621
+text = "Delete"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Time" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_top = 0.0647003
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Pool" type="CheckButton" parent="Screen/Theme/Time"]
+anchor_left = 0.292855
+anchor_top = 0.00907602
+anchor_right = 0.423888
+anchor_bottom = 0.0798981
+margin_left = -439.542
+margin_top = 274.225
+margin_right = -503.817
+margin_bottom = 195.665
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/Pool"]
+anchor_left = -1.9121
+anchor_top = 0.254279
+anchor_right = 0.150899
+anchor_bottom = 0.880279
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Use Time 
+Pool"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PoolFalse" type="Control" parent="Screen/Theme/Time"]
+anchor_right = 0.038
+anchor_bottom = 0.018
+margin_right = 0.479996
+margin_bottom = -0.0449486
+mouse_filter = 2
+
+[node name="Turn" type="TextEdit" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 12.8
+anchor_top = 1.9
+anchor_right = 23.45
+anchor_bottom = 4.525
+margin_right = -6.10352e-05
+text = "1.0"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Known" type="CheckButton" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 7.60039
+anchor_top = 6.22299
+anchor_right = 11.0073
+anchor_bottom = 9.93697
+margin_left = -439.542
+margin_top = 274.225
+margin_right = -503.817
+margin_bottom = 195.665
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/PoolFalse/Known"]
+anchor_left = -2.03748
+anchor_top = 0.155522
+anchor_right = 0.129637
+anchor_bottom = 0.862008
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Known amount
+of turns"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Amount" type="TextEdit" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 12.575
+anchor_top = 6.85
+anchor_right = 23.45
+anchor_bottom = 9.9
+margin_right = -6.10352e-05
+text = "1"
+readonly = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Bleed" type="CheckButton" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 18.9744
+anchor_top = 12.4065
+anchor_right = 22.3812
+anchor_bottom = 16.1204
+margin_left = -439.542
+margin_top = 274.225
+margin_right = -503.817
+margin_bottom = 195.665
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/PoolFalse/Bleed"]
+anchor_left = -5.22199
+anchor_top = -0.553738
+anchor_right = 2.6118
+anchor_bottom = 2.33846
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Use bleeding time
+(using more than turn time
+will take away that much from
+next turn, leaving no time
+for next turn = lose)"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 12.6825
+anchor_top = 0.447914
+anchor_right = 21.6825
+anchor_bottom = 1.64791
+margin_left = -0.00735474
+margin_top = -0.00371742
+margin_right = 119.993
+margin_bottom = -0.0035553
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Time per turn (sec):"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label2" type="Label" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 12.4568
+anchor_top = 5.00653
+anchor_right = 20.8568
+anchor_bottom = 6.20653
+margin_left = -0.00732422
+margin_top = -0.0037384
+margin_right = 47.9927
+margin_bottom = -0.0037384
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Amount of turns:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TurnIsFloat" type="ColorRect" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 23.825
+anchor_top = 1.925
+anchor_right = 25.35
+anchor_bottom = 4.25
+margin_left = 1.52588e-05
+margin_top = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AmountIsInt" type="ColorRect" parent="Screen/Theme/Time/PoolFalse"]
+anchor_left = 23.8191
+anchor_top = 6.82694
+anchor_right = 25.3441
+anchor_bottom = 9.60194
+margin_left = 1.52588e-05
+margin_top = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.172549, 0.172549, 0.172549, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PoolTrue" type="Control" parent="Screen/Theme/Time"]
+visible = false
+anchor_right = 0.038
+anchor_bottom = 0.018
+margin_right = 0.479996
+margin_bottom = -0.0449486
+mouse_filter = 2
+
+[node name="Total" type="TextEdit" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 12.7096
+anchor_top = 2.65688
+anchor_right = 22.0096
+anchor_bottom = 6.33188
+margin_right = -6.10352e-05
+text = "1.0"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Extra" type="CheckButton" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = -33.0356
+anchor_top = 21.315
+anchor_right = -32.5098
+anchor_bottom = 22.3115
+margin_left = 1384.45
+margin_top = -253.585
+margin_right = 1444.42
+margin_bottom = -223.442
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/PoolTrue/Extra"]
+anchor_left = -3.00531
+anchor_top = 0.0268326
+anchor_right = 2.43269
+anchor_bottom = 1.57227
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Gain extra time
+when close to losing"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ExtraLim" type="TextEdit" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 0.85
+anchor_top = 12.875
+anchor_right = 10.625
+anchor_bottom = 16.55
+margin_right = -6.10352e-05
+text = "1.0"
+readonly = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ExtraGain" type="TextEdit" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 13.7928
+anchor_top = 12.8769
+anchor_right = 23.0928
+anchor_bottom = 16.5519
+margin_right = -6.10352e-05
+text = "1.0"
+readonly = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 12.9533
+anchor_top = 0.583318
+anchor_right = 21.3533
+anchor_bottom = 1.78332
+margin_left = -0.00732422
+margin_top = -0.00372314
+margin_right = 71.9927
+margin_bottom = -0.00372314
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Total time (sec):"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label2" type="Label" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 1.08491
+anchor_top = 10.8033
+anchor_right = 9.48491
+anchor_bottom = 12.0033
+margin_left = -0.00732422
+margin_top = -0.00372314
+margin_right = -0.00732422
+margin_bottom = -0.00369263
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Limit (sec):"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label3" type="Label" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 14.0365
+anchor_top = 10.8033
+anchor_right = 22.4365
+anchor_bottom = 12.0033
+margin_left = -0.00732422
+margin_top = -0.00371552
+margin_right = -0.00732422
+margin_bottom = -0.00371552
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Gain (sec):"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TotalIsFloat" type="ColorRect" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 22.4765
+anchor_top = 2.96715
+anchor_right = 24.0015
+anchor_bottom = 5.74215
+margin_left = 1.52588e-05
+margin_top = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LimitIsFloat" type="ColorRect" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 10.9233
+anchor_top = 13.2065
+anchor_right = 12.4483
+anchor_bottom = 15.9815
+margin_left = 1.52588e-05
+margin_top = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.172549, 0.172549, 0.172549, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GainIsFloat" type="ColorRect" parent="Screen/Theme/Time/PoolTrue"]
+anchor_left = 23.2921
+anchor_top = 13.1159
+anchor_right = 24.8171
+anchor_bottom = 15.8909
+margin_left = 1.52588e-05
+margin_top = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.172549, 0.172549, 0.172549, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Lose" type="CheckButton" parent="Screen/Theme/Time"]
+anchor_left = 0.0440969
+anchor_top = 0.467556
+anchor_right = 0.120058
+anchor_bottom = 0.500369
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/Lose"]
+anchor_left = -2.75716
+anchor_top = 0.237968
+anchor_right = -0.228957
+anchor_bottom = 0.695201
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 401.726
+margin_bottom = -105.158
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Allow losing"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Transition" type="CheckButton" parent="Screen/Theme/Time"]
+anchor_left = 0.782926
+anchor_top = 0.41004
+anchor_right = 0.91396
+anchor_bottom = 0.480862
+margin_left = -439.542
+margin_top = 274.225
+margin_right = -503.817
+margin_bottom = 195.665
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Time/Transition"]
+anchor_left = -5.39248
+anchor_top = 0.0733243
+anchor_right = 3.10797
+anchor_bottom = 1.3449
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Use transition time 
+(between each turn, 
+lets pass phone to next player)"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TransitionTime" type="TextEdit" parent="Screen/Theme/Time"]
+anchor_left = 0.422779
+anchor_top = 0.501636
+anchor_right = 0.792009
+anchor_bottom = 0.566813
+margin_left = 1.0
+text = "1.0"
+readonly = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TTIsFloat" type="ColorRect" parent="Screen/Theme/Time"]
+anchor_left = 0.80301
+anchor_top = 0.507423
+anchor_right = 0.860856
+anchor_bottom = 0.559898
+margin_right = -0.16
+margin_bottom = 0.258423
+color = Color( 0.172549, 0.172549, 0.172549, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label2" type="Label" parent="Screen/Theme/Time"]
+anchor_left = 0.0321962
+anchor_top = 0.510166
+anchor_right = 0.37835
+anchor_bottom = 0.554666
+margin_left = -0.00732422
+margin_top = -0.00371552
+margin_right = -0.00732422
+margin_bottom = -0.00371552
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Transition time
+amount (sec):"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Continue" type="Button" parent="Screen/Theme/Time"]
+anchor_left = 0.0169756
+anchor_top = 0.900183
+anchor_right = 0.497745
+anchor_bottom = 0.992779
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Back" type="Button" parent="Screen/Theme/Time"]
+anchor_left = 0.539325
+anchor_top = 0.903268
+anchor_right = 0.963579
+anchor_bottom = 0.991132
+margin_left = 0.224243
+margin_top = 0.472656
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Error" type="Label" parent="Screen/Theme/Time"]
+visible = false
+anchor_left = 0.035
+anchor_top = 0.842
+anchor_right = 0.204
+anchor_bottom = 0.884
+margin_left = -17.4
+margin_top = 11.7863
+margin_right = 382.84
+margin_bottom = -19.6519
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 1, 0.494118, 0.494118, 1 )
+text = "Error: Incorrect input"
+
+[node name="Bird" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_top = 0.0647003
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Rounds" type="CheckButton" parent="Screen/Theme/Bird"]
+anchor_left = 0.423624
+anchor_top = 0.010874
+anchor_right = 0.554657
+anchor_bottom = 0.0816961
+margin_left = -439.542
+margin_top = 274.225
+margin_right = -503.817
+margin_bottom = 195.665
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Bird/Rounds"]
+anchor_left = -2.89822
+anchor_top = 0.115037
+anchor_right = 0.602257
+anchor_bottom = 0.741042
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Play bird theory
+(help with steps)
+lmao you wish"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Names" type="CheckButton" parent="Screen/Theme/Bird"]
+visible = false
+anchor_left = -0.265382
+anchor_top = 0.393762
+anchor_right = -0.155767
+anchor_bottom = 0.42163
+margin_left = 439.462
+margin_top = -274.27
+margin_right = 439.462
+margin_bottom = -274.27
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Bird/Names"]
+anchor_left = -2.4891
+anchor_top = -0.104519
+anchor_right = 1.24804
+anchor_bottom = 1.76235
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Keep track of bird
+powers (request played
+bird name input)"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Track" type="CheckButton" parent="Screen/Theme/Bird"]
+visible = false
+anchor_left = -0.819283
+anchor_top = 0.626636
+anchor_right = -0.743322
+anchor_bottom = 0.659449
+margin_left = 878.924
+margin_top = -548.54
+margin_right = 878.924
+margin_bottom = -548.54
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+disabled = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Bird/Track"]
+anchor_left = -2.47794
+anchor_top = 0.154099
+anchor_right = -0.338306
+anchor_bottom = 1.1712
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 401.726
+margin_bottom = -105.158
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "Keep track of 
+resources"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Solve" type="CheckButton" parent="Screen/Theme/Bird"]
+visible = false
+anchor_left = -0.10055
+anchor_top = 0.590226
+anchor_right = 0.030484
+anchor_bottom = 0.661048
+margin_left = 439.382
+margin_top = -274.315
+margin_right = 375.107
+margin_bottom = -352.875
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = SubResource( 13 )
+disabled = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Bird/Solve"]
+anchor_left = -5.17714
+anchor_top = 0.0966818
+anchor_right = 2.69826
+anchor_bottom = 1.67537
+margin_left = 219.756
+margin_top = -137.152
+margin_right = 351.724
+margin_bottom = -87.6059
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+text = "When detect inconsistency
+let player solve?
+(No = turn off keeping track)"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Start" type="Button" parent="Screen/Theme/Bird"]
+anchor_left = 0.0173077
+anchor_top = 0.900338
+anchor_right = 0.461557
+anchor_bottom = 0.977677
+margin_right = 27.9808
+margin_bottom = 29.9436
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Back" type="Button" parent="Screen/Theme/Bird"]
+anchor_left = 0.539325
+anchor_top = 0.903268
+anchor_right = 0.963579
+anchor_bottom = 0.991132
+margin_left = 0.224243
+margin_top = 0.472656
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Error" type="Label" parent="Screen/Theme/Bird"]
+visible = false
+anchor_left = 0.027
+anchor_top = 0.862
+anchor_right = 0.204
+anchor_bottom = 0.884
+margin_left = -11.0903
+margin_top = -29.9594
+margin_right = -11.1703
+margin_bottom = -30.9032
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 1, 0.494118, 0.494118, 1 )
+text = "Error"
+
+[node name="Game" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Status" type="Label" parent="Screen/Theme/Game"]
+anchor_left = 0.00201756
+anchor_top = 0.0214292
+anchor_right = 1.00202
+anchor_bottom = 0.059963
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Current player:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Player" type="Label" parent="Screen/Theme/Game"]
+anchor_top = 0.0753927
+anchor_right = 1.0
+anchor_bottom = 0.113926
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "lmao player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Time" type="Label" parent="Screen/Theme/Game"]
+anchor_top = 0.130659
+anchor_right = 1.0
+anchor_bottom = 0.169193
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "0:0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TotalStatus" type="Label" parent="Screen/Theme/Game"]
+anchor_left = 0.00201756
+anchor_top = 0.192482
+anchor_right = 1.00202
+anchor_bottom = 0.231016
+margin_left = 4.76837e-07
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Total time:(or smth idk)"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TotalTime" type="Label" parent="Screen/Theme/Game"]
+anchor_top = 0.241788
+anchor_right = 1.0
+anchor_bottom = 0.280322
+margin_top = 3.05176e-05
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "0:0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Finish" type="Button" parent="Screen/Theme/Game"]
+anchor_left = 0.25
+anchor_top = 0.296334
+anchor_right = 0.75
+anchor_bottom = 0.358574
+margin_left = 0.054657
+margin_right = 0.334656
+margin_bottom = 0.533203
+text = "Finish turn"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Pause" type="Button" parent="Screen/Theme/Game"]
+anchor_left = 0.25
+anchor_top = 0.921797
+anchor_right = 0.75
+anchor_bottom = 0.984037
+margin_left = 0.054657
+margin_right = 0.334656
+margin_bottom = 0.533203
+text = "Pause"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Error" type="Label" parent="Screen/Theme/Game"]
+visible = false
+anchor_left = 0.027
+anchor_top = 0.862
+anchor_right = 0.204
+anchor_bottom = 0.884
+margin_left = -11.0903
+margin_top = -29.9594
+margin_right = -11.1703
+margin_bottom = -30.9032
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 1, 0.494118, 0.494118, 1 )
+text = "Error"
+
+[node name="Pause" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_top = 0.0647003
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/Pause"]
+anchor_left = 0.00192308
+anchor_top = 0.0552863
+anchor_right = 1.00192
+anchor_bottom = 0.0592821
+margin_bottom = 78.9776
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Paused"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label2" type="Label" parent="Screen/Theme/Pause"]
+anchor_top = 0.0988889
+anchor_right = 1.0
+anchor_bottom = 0.135747
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Last player:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LastPlayer" type="Label" parent="Screen/Theme/Pause"]
+anchor_left = 0.00216358
+anchor_top = 0.147944
+anchor_right = 1.00216
+anchor_bottom = 0.184802
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "lmao player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label3" type="Label" parent="Screen/Theme/Pause"]
+anchor_top = 0.257075
+anchor_right = 1.0
+anchor_bottom = 0.293933
+margin_top = 3.05176e-05
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Time left:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TimeLeft" type="Label" parent="Screen/Theme/Pause"]
+anchor_top = 0.308857
+anchor_right = 1.0
+anchor_bottom = 0.349699
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Last player:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Unpause" type="Button" parent="Screen/Theme/Pause"]
+anchor_left = 0.25
+anchor_top = 0.462172
+anchor_right = 0.75
+anchor_bottom = 0.524412
+margin_left = 0.054657
+margin_top = -6.10352e-05
+margin_right = 0.334717
+margin_bottom = 0.533081
+text = "Unpause"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="End" type="Button" parent="Screen/Theme/Pause"]
+anchor_left = 0.25
+anchor_top = 0.771059
+anchor_right = 0.75
+anchor_bottom = 0.833299
+margin_left = 0.054657
+margin_right = 0.334656
+margin_bottom = 0.533203
+text = "End game"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="End" type="ReferenceRect" parent="Screen/Theme"]
+visible = false
+anchor_top = 0.0647003
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 2
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Screen/Theme/End"]
+anchor_left = 0.00201756
+anchor_top = 0.0552638
+anchor_right = 1.00202
+anchor_bottom = 0.0921224
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Game Ended"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WinLabel" type="Label" parent="Screen/Theme/End"]
+anchor_top = 0.0988889
+anchor_right = 1.0
+anchor_bottom = 0.135747
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_fonts/font = ExtResource( 5 )
+text = "Winning player:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WinPlayer" type="Label" parent="Screen/Theme/End"]
+anchor_left = 0.00216358
+anchor_top = 0.147944
+anchor_right = 1.00216
+anchor_bottom = 0.184802
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "lmao player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label3" type="Label" parent="Screen/Theme/End"]
+visible = false
+anchor_top = 0.317537
+anchor_right = 1.0
+anchor_bottom = 0.358379
+margin_top = 3.05176e-05
+rect_pivot_offset = Vector2( -439.462, 274.27 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Log saved"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Back" type="Button" parent="Screen/Theme/End"]
+anchor_left = 0.25
+anchor_top = 0.462172
+anchor_right = 0.75
+anchor_bottom = 0.524412
+margin_left = 0.054657
+margin_top = -6.10352e-05
+margin_right = 0.334717
+margin_bottom = 0.533081
+text = "Back to start"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Screen"]
+visible = false
+position = Vector2( 437.568, 1545.96 )
+polygon = PoolVector2Array( 122.322, 645.148, 232.323, 339.942, 494.323, 259.942, 682.723, 755.28, 410.86, 342.451, 292.323, 523.942, 430.998, 453.21, 206.123, 735.142, 271.572, 433.072 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="Screen"]
+visible = false
+polygon = PoolVector2Array( 35.3027, 70.0268, 1076, 9.55057, 584.628, 1496.26, 47.9022, 2297.57 )
+
+[connection signal="pressed" from="Screen/Theme/Players/Scroll/Container/New" to="Screen/Theme/Players" method="_on_New_pressed"]
+[connection signal="pressed" from="Screen/Theme/Players/Continue" to="Screen/Theme/Players" method="_on_Continue_pressed"]
+[connection signal="color_changed" from="Screen/Theme/Players/Edit/ColorPicker" to="Screen/Theme/Players" method="_on_ColorPicker_color_changed"]
+[connection signal="pressed" from="Screen/Theme/Players/Edit/Random" to="Screen/Theme/Players" method="_on_Random_pressed"]
+[connection signal="text_changed" from="Screen/Theme/Players/Edit/Name" to="Screen/Theme/Players" method="_on_Name_text_changed"]
+[connection signal="item_selected" from="Screen/Theme/Players/Edit/Bird" to="Screen/Theme/Players" method="_on_Bird_item_selected"]
+[connection signal="pressed" from="Screen/Theme/Players/Edit/Up" to="Screen/Theme/Players" method="_on_Up_pressed"]
+[connection signal="pressed" from="Screen/Theme/Players/Edit/Down" to="Screen/Theme/Players" method="_on_Down_pressed"]
+[connection signal="pressed" from="Screen/Theme/Players/Edit/Delete" to="Screen/Theme/Players" method="_on_Delete_pressed"]
+[connection signal="toggled" from="Screen/Theme/Time/Pool" to="Screen/Theme/Time" method="_on_Pool_toggled"]
+[connection signal="text_changed" from="Screen/Theme/Time/PoolFalse/Turn" to="Screen/Theme/Time" method="_on_Turn_text_changed"]
+[connection signal="toggled" from="Screen/Theme/Time/PoolFalse/Known" to="Screen/Theme/Time" method="_on_Known_toggled"]
+[connection signal="text_changed" from="Screen/Theme/Time/PoolFalse/Amount" to="Screen/Theme/Time" method="_on_Amount_text_changed"]
+[connection signal="toggled" from="Screen/Theme/Time/PoolFalse/Bleed" to="Screen/Theme/Time" method="_on_Bleed_toggled"]
+[connection signal="text_changed" from="Screen/Theme/Time/PoolTrue/Total" to="Screen/Theme/Time" method="_on_Total_text_changed"]
+[connection signal="toggled" from="Screen/Theme/Time/PoolTrue/Extra" to="Screen/Theme/Time" method="_on_Extra_toggled"]
+[connection signal="text_changed" from="Screen/Theme/Time/PoolTrue/ExtraLim" to="Screen/Theme/Time" method="_on_ExtraLim_text_changed"]
+[connection signal="text_changed" from="Screen/Theme/Time/PoolTrue/ExtraGain" to="Screen/Theme/Time" method="_on_ExtraGain_text_changed"]
+[connection signal="toggled" from="Screen/Theme/Time/Lose" to="Screen/Theme/Time" method="_on_Lose_toggled"]
+[connection signal="toggled" from="Screen/Theme/Time/Transition" to="Screen/Theme/Time" method="_on_Transition_toggled"]
+[connection signal="text_changed" from="Screen/Theme/Time/TransitionTime" to="Screen/Theme/Time" method="_on_TransitionTime_text_changed"]
+[connection signal="pressed" from="Screen/Theme/Time/Continue" to="Screen/Theme/Time" method="_on_Continue_pressed"]
+[connection signal="pressed" from="Screen/Theme/Time/Back" to="Screen/Theme/Time" method="_on_Back_pressed"]
+[connection signal="pressed" from="Screen/Theme/Bird/Start" to="Screen/Theme/Bird" method="_on_Start_pressed"]
+[connection signal="pressed" from="Screen/Theme/Bird/Back" to="Screen/Theme/Bird" method="_on_Back_pressed"]
+[connection signal="pressed" from="Screen/Theme/Game/Finish" to="Screen/Theme/Game" method="_on_Finish_pressed"]
+[connection signal="pressed" from="Screen/Theme/Game/Pause" to="Screen/Theme/Game" method="_on_Pause_pressed"]
+[connection signal="pressed" from="Screen/Theme/Pause/Unpause" to="Screen/Theme/Pause" method="_on_Unpause_pressed"]
+[connection signal="pressed" from="Screen/Theme/Pause/End" to="Screen/Theme/Pause" method="_on_End_pressed"]
+[connection signal="pressed" from="Screen/Theme/End/Back" to="Screen/Theme/End" method="_on_Back_pressed"]
